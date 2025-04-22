@@ -1,0 +1,95 @@
+.header {
+    background-color: #000;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure the container takes full width */
+    max-width: 100%;
+    text-align: center; /* Additional centering */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Base logo styling for all devices */
+.logo {
+    height: 500px !important; /* Desktop size */
+    width: auto !important;
+    max-width: 90vw !important; /* Prevent logo from overflowing viewport width */
+    max-height: none !important;
+    object-fit: contain !important;
+    filter: brightness(0) invert(1);
+    margin: 0 auto !important; /* Center the logo horizontally */
+    display: block !important; /* Ensures proper block-level centering */
+    position: relative !important; /* Positions the element relative to its normal position */
+    /* No transform properties here that would break the pulse animation */
+}
+
+.pulse {
+    animation: pulse-animation 0.4s infinite;
+    /* No transform-origin or other properties that might interfere */
+}
+
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive sizing for different screen sizes */
+@media (max-width: 1200px) {
+    .logo {
+        height: 400px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .logo {
+        height: 300px !important;
+    }
+    
+    .header {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+        height: 200px !important;
+    }
+    
+    .header {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        height: 150px !important;
+        left: 0 !important; /* Ensure no leftward shift on mobile */
+        right: 0 !important; /* Ensure no rightward shift on mobile */
+    }
+    
+    .header {
+        padding: 0.8rem;
+    }
+}
