@@ -1,5 +1,12 @@
+@font-face {
+  font-family: 'Akira Expanded';
+  src: url('/fonts/Akira Expanded Demo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Akira Expanded', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -27,13 +34,15 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #000000;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 #root {
-  padding-top: 550px; /* Space for large desktop header */
+  padding-top: 650px; /* Increased space for large desktop header with remixed logo */
   margin: 0 auto;
   max-width: 1280px;
   text-align: center;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 h1 {
@@ -63,19 +72,19 @@ button:focus-visible {
 /* Responsive padding adjustment for content */
 @media (max-width: 1200px) {
   #root {
-    padding-top: 450px; /* Adjust based on logo size */
+    padding-top: 300px; /* Adjusted based on new header height */
   }
 }
 
 @media (max-width: 992px) {
   #root {
-    padding-top: 350px;
+    padding-top: 250px; /* Increased to accommodate header with remixed logo */
   }
 }
 
 @media (max-width: 768px) {
   #root {
-    padding-top: 250px;
+    padding-top: 200px; /* Increased to accommodate header on tablet */
   }
   
   h1 {
@@ -85,7 +94,7 @@ button:focus-visible {
 
 @media (max-width: 480px) {
   #root {
-    padding-top: 200px;
+    padding-top: 140px; /* Increased for mobile devices */
   }
   
   h1 {
