@@ -1,7 +1,9 @@
 .header {
     background-color: #000;
-    padding: 2rem;
+    padding: 4rem;
+    padding-bottom: 5rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -13,34 +15,62 @@
     box-sizing: border-box;
 }
 
+.studio-text {
+    color: #00FF00; /* Green text to match your brand */
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .logo-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%; /* Ensure the container takes full width */
+    width: 100%;
     max-width: 100%;
-    text-align: center; /* Additional centering */
+    text-align: center;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible;
+    padding-bottom: 80px;
 }
 
 /* Base logo styling for all devices */
 .logo {
-    height: 500px !important; /* Desktop size */
+    height: 500px !important;
     width: auto !important;
-    max-width: 90vw !important; /* Prevent logo from overflowing viewport width */
+    max-width: 90vw !important;
     max-height: none !important;
     object-fit: contain !important;
     filter: brightness(0) invert(1);
-    margin: 0 auto !important; /* Center the logo horizontally */
-    display: block !important; /* Ensures proper block-level centering */
-    position: relative !important; /* Positions the element relative to its normal position */
-    /* No transform properties here that would break the pulse animation */
+    margin: 0 auto !important;
+    display: block !important;
+    position: relative !important;
+}
+
+.remixed-logo {
+    /* For Desktop - keep the scale transformation */
+    width: auto !important;
+    height: auto !important;
+    margin: 150px auto 0 !important;
+    display: block !important;
+    object-fit: contain !important;
+    position: relative !important;
+    transform: scale(3) !important;
+    transform-origin: center center !important;
 }
 
 .pulse {
     animation: pulse-animation 0.4s infinite;
-    /* No transform-origin or other properties that might interfere */
 }
 
 @keyframes pulse-animation {
@@ -60,6 +90,25 @@
     .logo {
         height: 400px !important;
     }
+
+    .remixed-logo {
+        transform: scale(2.2) !important;
+        margin: 100px auto 0 !important;
+    }
+
+    .header {
+        padding: 3rem;
+        padding-bottom: 4rem;
+    }
+
+    .logo-container {
+        padding-bottom: 70px;
+    }
+
+    .studio-text {
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -68,28 +117,140 @@
     }
     
     .header {
-        padding: 1.5rem;
+        padding: 2rem;
+        padding-bottom: 3.5rem;
+    }
+
+    .remixed-logo {
+        transform: scale(1.8) !important;
+        margin: 30px auto 0 !important;
+    }
+
+    .logo-container {
+        padding-bottom: 50px;
+    }
+
+    .studio-text {
+        font-size: 2rem;
+        margin-bottom: 20px;
     }
 }
 
+/* Special mobile handling */
 @media (max-width: 768px) {
     .logo {
         height: 200px !important;
+        margin-bottom: -20px !important; /* NEW: Negative margin to pull elements closer */
     }
     
     .header {
-        padding: 1rem;
+        padding: 1.5rem;
+        padding-bottom: 1rem; /* REDUCED from 3rem */
+    }
+
+    /* Switch to width-based approach for tablets */
+    .remixed-logo {
+        transform: none !important; /* Remove scale */
+        width: 300px !important; /* Use width instead */
+        max-width: 85% !important;
+        margin: 0 auto !important; /* REDUCED from 20px to 0 */
+    }
+
+    .logo-container {
+        padding-bottom: 40px; /* REDUCED from 70px */
+    }
+
+    .studio-text {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
     }
 }
 
 @media (max-width: 480px) {
     .logo {
         height: 150px !important;
-        left: 0 !important; /* Ensure no leftward shift on mobile */
-        right: 0 !important; /* Ensure no rightward shift on mobile */
+        left: 0 !important;
+        right: 0 !important;
+        margin-bottom: -30px !important; /* NEW: Negative margin to pull elements closer */
     }
     
     .header {
-        padding: 0.8rem;
+        padding: 1rem;
+        padding-bottom: 1rem; /* REDUCED from 2.5rem */
+    }
+
+    /* Width-based approach for mobile */
+    .remixed-logo {
+        width: 250px !important;
+        max-width: 85% !important;
+        margin: 0 auto !important; /* REDUCED from 10px to 0 */
+    }
+
+    .logo-container {
+        padding-bottom: 30px; /* REDUCED from 60px */
+    }
+
+    .studio-text {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+
+
+}
+
+/* Make sure the styles have higher specificity for mobile */
+@media only screen and (max-width: 480px) {
+    .header .studio-text {
+        font-size: 0.7rem !important; 
+        margin-bottom: 1px !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .logo-container {
+        padding-bottom: 20px !important; /* Reduced from 60px */
+    }
+    
+    /* Increase negative margin to pull elements closer */
+    .logo {
+        margin-bottom: -50px !important; /* More negative margin for mobile */
+    }
+    
+    /* Minimal header padding */
+    .header {
+        padding: 0.8rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    /* Adjust root padding to accommodate the reduced header size */
+    #root {
+        padding-top: 250px !important; /* Reduced from 300px */
     }
 }
+
+/* Also try adding !important to force the styles on mobile */
+@media only screen and (max-width: 768px) {
+    .header .studio-text {
+        font-size: 0.9rem !important;
+        margin-bottom: 3px !important;
+        letter-spacing: 0.8px !important;
+    }
+
+    .logo-container {
+        padding-bottom: 30px !important; /* Reduced from 70px */
+    }
+    
+    /* Reduce space between main logo and remixed logo */
+    .logo {
+        margin-bottom: -40px !important; /* Increased negative margin */
+    }
+    
+    /* Reduce header padding */
+    .header {
+        padding: 1rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+}
+
+
