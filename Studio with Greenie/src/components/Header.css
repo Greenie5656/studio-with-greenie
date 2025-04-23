@@ -253,4 +253,47 @@
     }
 }
 
+/* Audio button styles */
+.audio-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    background: #000000;
+    color: #00FF00;
+    border: 3px solid #00FF00;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 0 15px #00FF00;
+    transition: all 0.3s ease;
+}
+
+.audio-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #00FF00;
+}
+
+/* Larger button for desktop */
+@media (min-width: 768px) {
+    .audio-button {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+        border-width: 4px;
+        box-shadow: 0 0 20px #00FF00;
+        bottom: 40px;
+        right: 40px;
+    }
+    
+    .audio-button:hover {
+        box-shadow: 0 0 30px #00FF00;
+    }
+}
+
 
