@@ -1,14 +1,16 @@
 
 import Header from './components/Header'
 import AnimatedBackground from './components/AnimatedBackground'
+import IsolatedServiceList from './components/IsolatedServiceList'
 import './App.css'
 
 function App() {
   return (
-    <div className="App">
+    <>
       <AnimatedBackground/>
       <Header />
-    </div>
+      <IsolatedServiceList />
+    </>
   )
 }
 
