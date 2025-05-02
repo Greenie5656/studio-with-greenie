@@ -114,3 +114,27 @@ button:focus-visible {
     background-color: #1a1a1a;
   }
 }
+
+/* Add special styles for the service-list */
+.service-list {
+  margin-top: 0; /* No additional margin needed, root padding handles it */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  min-width: 100vw;
+}
+
+#root {
+  width: 100% !important;
+  max-width: 100% !important; /* Remove width constraint */
+  margin: 0 !important;
+  box-sizing: border-box;
+}
