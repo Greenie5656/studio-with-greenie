@@ -337,9 +337,6 @@ const successStyles = {
 
 // Isolated BookingModal component
 function IsolatedBookingModal({ service, onClose }) {
-  const [email, setEmail] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   
   // Track window width for responsiveness
@@ -355,11 +352,11 @@ function IsolatedBookingModal({ service, onClose }) {
   // Responsive styles for modal
   const responsiveModalStyle = {
     ...modalStyles.modalContent,
-    width: isMobile ? '90%' : '500px',        // Larger fixed width for desktop
-    minWidth: isMobile ? 'auto' : '500px',    // Increased minimum width for desktop
-    maxWidth: isMobile ? '400px' : '600px',   // Increased maximum width for desktop
-    padding: isMobile ? '1.5rem' : '2.5rem',  // More padding on desktop
-    transform: isMobile ? 'scale(1)' : 'scale(4)', // Scale up by 40% on desktop
+    width: isMobile ? '90%' : '500px',
+    minWidth: isMobile ? 'auto' : '500px',
+    maxWidth: isMobile ? '400px' : '600px',
+    padding: isMobile ? '1.5rem' : '2.5rem',
+    transform: isMobile ? 'scale(1)' : 'scale(4)',
     transformOrigin: 'center center',
   };
   
@@ -368,30 +365,10 @@ function IsolatedBookingModal({ service, onClose }) {
     fontSize: isMobile ? '1.8rem' : '2.5rem',
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Simulate processing
-    setIsProcessing(true);
-    
-    // Log booking info to console
-    console.log('Booking submitted:', {
-      service: service.name,
-      price: service.price,
-      deposit: service.deposit,
-      email: email
-    });
-    
-    // Simulate API call with timeout
-    setTimeout(() => {
-      setIsProcessing(false);
-      setIsSuccess(true);
-    }, 1500);
+  // Function to handle redirect to Stripe
+  const handleStripeRedirect = () => {
+    window.location.href = service.paymentLink;
   };
-  
-  if (isSuccess) {
-    return <IsolatedSuccessMessage service={service} onClose={onClose} />;
-  }
 
   return (
     <div style={modalStyles.modalOverlay} onClick={onClose}>
@@ -427,33 +404,35 @@ function IsolatedBookingModal({ service, onClose }) {
           <p style={modalStyles.bookingTurnaround}>
             Estimated turnaround: {service.turnaround}
           </p>
+          
+          {/* Test mode indicator */}
+          <p style={{
+            backgroundColor: '#FFF5CC',
+            color: '#333',
+            padding: '0.5rem',
+            borderRadius: '5px',
+            fontSize: isMobile ? '0.7rem' : '0.9rem',
+            marginTop: '1rem',
+            marginBottom: '1rem'
+          }}>
+            ⚠️ TEST MODE: No real payments will be processed
+          </p>
+          
+          <p style={{
+            fontSize: isMobile ? '0.9rem' : '1rem',
+            margin: '1rem 0',
+            opacity: 0.8
+          }}>
+            You'll be redirected to our secure payment page
+          </p>
         </div>
         
-        <form onSubmit={handleSubmit}>
-          <div style={modalStyles.formGroup}>
-            <label style={modalStyles.label} htmlFor="email">Email address</label>
-            <input
-              style={modalStyles.input}
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              required
-            />
-          </div>
-          
-          <button 
-            type="submit" 
-            style={{
-              ...modalStyles.bookNowButton,
-              ...(isProcessing ? modalStyles.processingButton : {})
-            }}
-            disabled={isProcessing}
-          >
-            {isProcessing ? 'Processing...' : `Book Now ${service.deposit ? `- ${service.deposit}` : ''}`}
-          </button>
-        </form>
+        <button 
+          onClick={handleStripeRedirect}
+          style={modalStyles.bookNowButton}
+        >
+          Pay with Stripe - {service.deposit ? service.deposit : service.price}
+        </button>
       </div>
     </div>
   );
@@ -632,7 +611,9 @@ function IsolatedServiceList() {
       price: '£150',
       deposit: '£75',
       description: 'Get your very own tracks produced and mastered by DJ Greenie',
-      turnaround: '2 weeks'
+      turnaround: '2 weeks',
+      paymentLink: 'https://buy.stripe.com/test_dR616sbmQeFTaGc5kn'
+
     };
     
     // Merge base styles with mobile adjustments if needed
@@ -703,7 +684,8 @@ function IsolatedServiceList() {
       price: 'From £25',
       deposit: '£25',
       description: 'Professional mastering services for your tracks',
-      turnaround: '2 weeks'
+      turnaround: '2 weeks',
+      paymentLink: 'https://buy.stripe.com/test_9AQg1mgHa7draGc4gi'
     };
     
     // Merge base styles with mobile adjustments if needed
@@ -773,11 +755,12 @@ function IsolatedServiceList() {
     const lessonsService = {
       name: 'Lessons',
       djPrice: '£25',
-      productionPrice: '£20',
-      price: 'From £20',
-      deposit: '£20',
+      productionPrice: '£25',
+      price: '£25',
+      deposit: '£25',
       description: 'One-on-one lessons with DJ Greenie',
-      turnaround: '30 mins per session'
+      turnaround: '30 mins per session',
+      paymentLink: 'https://buy.stripe.com/test_6oE5mI2Qk1T74hO8wx'
     };
     
     // Merge base styles with mobile adjustments if needed
@@ -837,7 +820,7 @@ function IsolatedServiceList() {
           onMouseEnter={() => setHoveredButton('lessons')}
           onMouseLeave={() => setHoveredButton(null)}
         >
-          ENQUIRE
+          BOOK
         </button>
       </div>
     );
@@ -849,7 +832,9 @@ function IsolatedServiceList() {
       price: '£30',
       deposit: '£30',
       description: 'Get any riff recreated and delivered as a MIDI file',
-      turnaround: '2 weeks'
+      turnaround: '2 weeks',
+      paymentLink: 'https://buy.stripe.com/test_14k4iEgHaeFT01y6oo'
+
     };
     
     // Merge base styles with mobile adjustments if needed
