@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useForm, ValidationError } from '@formspree/react';
+
 
 
 // Card styles with very large 1300px fixed dimensions
@@ -338,6 +340,7 @@ const successStyles = {
 // Isolated BookingModal component
 function IsolatedBookingModal({ service, onClose }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [formState, handleSubmit] = useForm("xvgaaddo"); // Replace with your actual form ID
   
   // Track window width for responsiveness
   useEffect(() => {
@@ -345,6 +348,13 @@ function IsolatedBookingModal({ service, onClose }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  
+  // If form submission succeeded, redirect to Stripe
+  useEffect(() => {
+    if (formState.succeeded) {
+      window.location.href = service.paymentLink;
+    }
+  }, [formState.succeeded, service.paymentLink]);
   
   // Determine if mobile view
   const isMobile = windowWidth <= 768;
@@ -365,10 +375,46 @@ function IsolatedBookingModal({ service, onClose }) {
     fontSize: isMobile ? '1.8rem' : '2.5rem',
   };
 
-  // Function to handle redirect to Stripe
-  const handleStripeRedirect = () => {
-    window.location.href = service.paymentLink;
-  };
+  // Show loading state while redirecting to Stripe
+  if (formState.succeeded) {
+    return (
+      <div style={modalStyles.modalOverlay}>
+        <div style={responsiveModalStyle}>
+          <h2 style={responsiveH2Style}>Redirecting to payment...</h2>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '2rem',
+            marginBottom: '2rem'
+          }}>
+            <div style={{
+              width: '50px',
+              height: '50px',
+              border: '5px solid rgba(0, 255, 0, 0.3)',
+              borderRadius: '50%',
+              borderTop: '5px solid #00FF00',
+              animation: 'spin 1s linear infinite',
+            }}></div>
+            <style>
+              {`
+                @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+              `}
+            </style>
+          </div>
+          <p style={{
+            textAlign: 'center',
+            fontSize: '1rem',
+            opacity: 0.8,
+          }}>
+            Please wait while we connect to our secure payment provider
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={modalStyles.modalOverlay} onClick={onClose}>
@@ -417,22 +463,59 @@ function IsolatedBookingModal({ service, onClose }) {
           }}>
             ⚠️ TEST MODE: No real payments will be processed
           </p>
-          
-          <p style={{
-            fontSize: isMobile ? '0.9rem' : '1rem',
-            margin: '1rem 0',
-            opacity: 0.8
-          }}>
-            You'll be redirected to our secure payment page
-          </p>
         </div>
         
-        <button 
-          onClick={handleStripeRedirect}
-          style={modalStyles.bookNowButton}
-        >
-          Pay with Stripe - {service.deposit ? service.deposit : service.price}
-        </button>
+        {/* Formspree form */}
+        <form onSubmit={handleSubmit}>
+          <div style={modalStyles.formGroup}>
+            <label style={modalStyles.label} htmlFor="email">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email" 
+              name="email"
+              style={modalStyles.input}
+              required
+              placeholder="your@email.com"
+            />
+            <ValidationError 
+              prefix="Email" 
+              field="email"
+              errors={formState.errors}
+              style={{
+                color: '#FF4444',
+                fontSize: '0.8rem',
+                marginTop: '0.5rem'
+              }}
+            />
+            
+            {/* Hidden fields to pass service information */}
+            <input type="hidden" name="service" value={service.name} />
+            <input type="hidden" name="price" value={service.price} />
+            {service.deposit && <input type="hidden" name="deposit" value={service.deposit} />}
+          </div>
+          
+          <button 
+            type="submit"
+            disabled={formState.submitting}
+            style={{
+              ...modalStyles.bookNowButton,
+              ...(formState.submitting ? modalStyles.processingButton : {})
+            }}
+          >
+            {formState.submitting ? 'Processing...' : `Continue to Payment - ${service.deposit ? service.deposit : service.price}`}
+          </button>
+        </form>
+        
+        <p style={{
+          fontSize: isMobile ? '0.9rem' : '1rem',
+          margin: '1rem 0',
+          opacity: 0.8,
+          textAlign: 'center'
+        }}>
+          You'll be redirected to our secure payment page after submitting
+        </p>
       </div>
     </div>
   );
