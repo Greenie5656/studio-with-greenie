@@ -605,9 +605,10 @@ function IsolatedServiceList() {
     function calculateHeaderHeight() {
       const header = document.querySelector('.header');
       if (header) {
+        const width = window.innerWidth;
         // Get actual header height plus some padding
         const height = header.offsetHeight + 20;
-        setHeaderHeight(height);
+        setHeaderHeight(width > 768 ? height : height - 60);
       } else {
         // Fallback values based on screen size
         const width = window.innerWidth;
