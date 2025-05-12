@@ -110,46 +110,40 @@ const ContentPage = ({ children, title }) => {
     // Isolated styling for content pages
     const styles = {
         contentPage: {
-            // Add explicit margin-top to push content below header
             marginTop: `${headerHeight}px`,
-            paddingTop: '20px', // Reduced padding
+            paddingTop: '2rem',
             minHeight: '100vh',
             backgroundColor: '#000',
             color: 'white',
-            fontSize: isDesktop ? '1rem' : isTablet ? '0.9rem' : '0.8rem',
-            // Add transform scale for desktop
-            transform: isDesktop ? 'scale(3)' : 'scale(1)',
-            transformOrigin: 'top center',
-            // Add padding to account for scaling
-            paddingBottom: isDesktop ? '50%' : '200px', // Extra space at bottom for scaled content
+            fontSize: '1rem',
         },
         contentContainer: {
-            maxWidth: isDesktop ? '1000px' : '800px',
-            width: '90%',
+            maxWidth: '1200px',
+            width: '100%',
             margin: '0 auto',
-            padding: isDesktop ? '2rem' : isTablet ? '1.5rem' : '1rem',
+            padding: '2rem 0',
         },
         contentTitle: {
-            fontSize: isDesktop ? '3rem' : isTablet ? '2.2rem' : '1.8rem',
+            fontSize: '2rem',
             color: '#00FF00',
             textAlign: 'center',
-            marginBottom: isDesktop ? '3rem' : isTablet ? '2rem' : '1.5rem',
+            marginBottom: '2rem',
             textTransform: 'uppercase',
             letterSpacing: '2px',
             fontFamily: 'Akira Expanded, sans-serif',
             textShadow: '0 0 10px rgba(0, 255, 0, 0.7)',
         },
         contentSection: {
-            marginBottom: isDesktop ? '3rem' : isTablet ? '2rem' : '1.5rem',
+            marginBottom: '2rem',
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            padding: isDesktop ? '2rem' : isTablet ? '1.5rem' : '1rem',
+            padding: isTablet || isMobile ? '1rem' : '2rem',
             borderRadius: '15px',
             border: '2px solid rgba(0, 255, 0, 0.3)',
             boxShadow: '0 0 20px rgba(0, 255, 0, 0.1)',
         },
         h2: {
             color: '#00FF00',
-            fontSize: isDesktop ? '1.8rem' : isTablet ? '1.5rem' : '1.2rem',
+            fontSize: '2rem',
             marginBottom: '1.5rem',
             borderBottom: '1px solid rgba(0, 255, 0, 0.3)',
             paddingBottom: '0.5rem',
@@ -157,7 +151,7 @@ const ContentPage = ({ children, title }) => {
         p: {
             marginBottom: '1rem',
             lineHeight: 1.6,
-            fontSize: isDesktop ? '1.1rem' : isTablet ? '1rem' : '0.9rem',
+            fontSize: '1rem',
         }
     };
     

@@ -21,13 +21,11 @@ function Footer() {
     const footerStyles = {
         footer: {
             backgroundColor: '#000',
-            padding: isDesktop ? '2rem 1rem' : isTablet ? '1.5rem 1rem' : '1rem',
+            padding: '1.5rem',
             width: '100%',
             boxShadow: '0 -2px 10px rgba(0, 255, 0, 0.3)',
             borderTop: '2px solid #00FF00',
-            marginTop: '2rem',
-            transform: isDesktop ? 'scale(1.4)' : 'scale(1)', // Scale consistently
-            transformOrigin: 'center bottom'
+            marginTop: '2rem'
         },
         footerContent: {
             maxWidth: '1200px',
@@ -35,19 +33,18 @@ function Footer() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '1rem'
+            gap: '1.5rem'
         },
         footerLinks: {
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            gap: isDesktop ? '2rem' : isTablet ? '1.5rem' : '1rem',
-            flexDirection: windowWidth <= 480 ? 'column' : 'row'
+            gap: '2rem'
         },
         footerLink: {
             color: '#00FF00',
-            textDecoration: 'none',
-            fontSize: isDesktop ? '2rem' : isTablet ? '1.4rem' : '1rem',
+            textDecoration: 'none', 
+            fontSize: '1.1rem',
             fontWeight: '500',
             transition: 'all 0.3s ease',
             textTransform: 'uppercase',
@@ -55,9 +52,9 @@ function Footer() {
         },
         footerCopyright: {
             color: '#888',
-            fontSize: isDesktop ? '1.5rem' : isTablet ? '1.2rem' : '1rem',
+            fontSize: '1rem',
             textAlign: 'center',
-            marginTop: '1rem'
+            marginTop: '1.5rem'
         }
     };
 

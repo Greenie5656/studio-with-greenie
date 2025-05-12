@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 
-
-
-// Card styles with very large 1300px fixed dimensions
 const cardStyles = {
   base: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column', 
     alignItems: 'center',
-    justifyContent: 'space-around',
-    padding: '3rem',
+    justifyContent: 'space-between',
+    padding: '1rem 1rem 1.5rem',
     borderRadius: '15px',
     boxShadow: '0 15px 35px rgba(0, 0, 0, 0.5)',
     color: 'white',
     textAlign: 'center',
-    position: 'relative',
-    // Massive fixed dimensions - 1300px per card
-    width: '1300px',
-    height: '1300px',
-    margin: '0 2rem',
     backgroundColor: 'black',
-    border: '5px solid #00FF00', // Thicker green border
+    border: '3px solid #00FF00',
+    width: '350px',
+    minHeight: 'auto',
+    margin: '1rem'
   },
   tracks: {
     backgroundColor: 'black',
     borderColor: '#00FF00',
   },
   mastering: {
-    backgroundColor: 'black',
+    backgroundColor: 'black', 
     borderColor: '#00FF00',
   },
   lessons: {
@@ -40,61 +35,58 @@ const cardStyles = {
     borderColor: '#00FF00',
   },
   button: {
-    padding: '1.2rem 3rem',
-    fontSize: '5rem',
+    padding: '1rem 2rem',
+    fontSize: '1.2rem',
     fontWeight: 'bold',
     border: 'none',
     borderRadius: '50px',
     cursor: 'pointer',
     textTransform: 'uppercase',
-    backgroundColor: '#00FF00', // Green button
-    color: 'black', // Black text
+    backgroundColor: '#00FF00',
+    color: 'black',
     fontFamily: 'Akira Expanded, sans-serif',
-    letterSpacing: '2px',
-    marginTop: 'auto',
-    marginBottom: '2rem',
-    zIndex: 1,
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    boxShadow: '0 0 25px rgba(0, 255, 0, 0.7)',
+    letterSpacing: '1px',
+    marginTop: '1.5rem',
+    transition: 'all 0.2s',
+    boxShadow: '0 0 15px rgba(0, 255, 0, 0.5)',
   },
   buttonHover: {
     transform: 'scale(1.05)',
-    boxShadow: '0 0 40px rgba(0, 255, 0, 1)',
+    boxShadow: '0 0 25px rgba(0, 255, 0, 0.8)',
   },
   h2: {
-    fontSize: '8rem', // Much larger font size
-    margin: '1.5rem 0',
+    fontSize: '1.8rem',
+    margin: '0.5rem 0',
     fontFamily: 'Akira Expanded, sans-serif',
-    letterSpacing: '3px',
-    zIndex: 1,
-    color: '#00FF00', // Green text
+    letterSpacing: '2px',
+    color: '#00FF00',
   },
   price: {
-    fontSize: '5rem', // Much larger font size
+    fontSize: '2rem',
+    lineHeight: '1.2',
     fontWeight: 'bold',
-    margin: '2rem 0 3rem 0',
-    zIndex: 1
+    margin: '0.5rem 0',
   },
   description: {
-    margin: '1.5rem 0',
-    fontSize: '3rem', // Much larger font size
-    maxWidth: '85%',
-    zIndex: 1,
-    lineHeight: 1.4
+    fontSize: '1rem',
+    lineHeight: '1.6',
+    margin: '1rem 0',
+    maxWidth: '90%',
   },
   delivery: {
-    fontSize: '3rem', // Much larger font size
-    marginTop: 'auto',
-    marginBottom: '1.5rem',
+    fontSize: '1rem',
+    margin: '1rem 0',
     opacity: 0.8,
-    zIndex: 1
   },
   icon: {
-    fontSize: '9rem', // Much larger font size
-    marginTop: '2rem',
-    zIndex: 1
+    fontSize: '2.5rem',
+    margin: '1rem 0',
   }
 };
+
+
+// Card styles with very large 1300px fixed dimensions
+
 
 // Responsive adjustments for mobile
 const getMobileCardStyles = (windowWidth) => {
@@ -117,18 +109,18 @@ const getMobileCardStyles = (windowWidth) => {
   } else if (windowWidth <= 768) {
     // Standard mobile devices
     return {
-      width: '90vw', // Use viewport width instead of fixed pixels
-      maxWidth: '400px', // Add a max-width for safety
-      height: 'auto',
-      minHeight: '500px',
-      padding: '1.5rem',
-      margin: '0 auto', // Center the card
-      h2: { fontSize: '2.5rem' },
-      price: { fontSize: '1.8rem' },
-      description: { fontSize: '1.2rem', lineHeight: '1.5' },
-      delivery: { fontSize: '1rem' },
-      icon: { fontSize: '3rem' },
-      button: { fontSize: '1.2rem', padding: '0.8rem 2rem' }
+      width: '100%',
+      maxWidth: '500px',
+      height: 'auto', 
+      minHeight: '400px',
+      padding: '20px',
+      margin: '0 auto',
+      h2: { fontSize: '24px' },
+      price: { fontSize: '20px' },
+      description: { fontSize: '16px', lineHeight: '1.5' },
+      delivery: { fontSize: '14px' },
+      icon: { fontSize: '24px' },
+      button: { fontSize: '16px', padding: '12px 24px' }
     };
   }
   return {};
@@ -136,113 +128,109 @@ const getMobileCardStyles = (windowWidth) => {
 
 
 const modalStyles = {
-    modalOverlay: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.85)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1000,
-      padding: '20px', // Add padding to prevent content touching edges on mobile
-    },
-    modalContent: {
-      backgroundColor: 'black',
-      border: '3px solid #00FF00',
-      borderRadius: '15px',
-      padding: '2rem',
-      position: 'relative',
-      width: '90%',
-      maxWidth: '500px', // Limit maximum width on larger screens
-      minWidth: '300px', // Set minimum width for desktop
-      color: 'white',
-      boxShadow: '0 0 30px rgba(0, 255, 0, 0.5)',
-      textAlign: 'center', // Center all content
-    },
-    closeButton: {
-      position: 'absolute',
-      top: '1rem',
-      right: '1rem',
-      background: 'none',
-      border: 'none',
-      color: '#00FF00',
-      fontSize: '2rem',
-      cursor: 'pointer',
-    },
-    h2: {
-      fontSize: '2.5rem',
-      textAlign: 'center',
-      color: '#00FF00',
-      marginBottom: '1.5rem',
-      fontFamily: 'Akira Expanded, sans-serif',
-      letterSpacing: '2px',
-    },
-    bookingDetails: {
-      marginBottom: '2rem',
-      textAlign: 'center', // Ensure centered text
-    },
-    bookingService: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      marginBottom: '0.5rem',
-    },
-    bookingPrice: {
-      fontSize: '1.2rem',
-      marginBottom: '1rem',
-    },
-    bookingPaymentTerms: {
-      fontSize: '1rem',
-      marginBottom: '1rem',
-      opacity: 0.8,
-    },
-    bookingTurnaround: {
-      fontSize: '1rem',
-      opacity: 0.8,
-    },
-    formGroup: {
-      marginBottom: '1.5rem',
-      width: '100%', // Ensure full width
-    },
-    label: {
-      display: 'block',
-      marginBottom: '0.5rem',
-      fontSize: '1rem',
-      textAlign: 'left', // Keep label left-aligned
-    },
-    input: {
-      width: '100%',
-      padding: '0.8rem',
-      backgroundColor: 'rgba(0, 255, 0, 0.1)',
-      border: '2px solid #00FF00',
-      borderRadius: '5px',
-      color: 'white',
-      fontSize: '1rem',
-      boxSizing: 'border-box', // Ensure padding doesn't affect width
-    },
-    bookNowButton: {
-      width: '100%',
-      padding: '1rem',
-      backgroundColor: '#00FF00',
-      color: 'black',
-      border: 'none',
-      borderRadius: '50px',
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      boxShadow: '0 0 15px rgba(0, 255, 0, 0.5)',
-      fontFamily: 'Akira Expanded, sans-serif',
-      letterSpacing: '1px',
-    },
-    processingButton: {
-      opacity: 0.7,
-    }
-  };
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+    padding: '1rem',
+  },
+  modalContent: {
+    backgroundColor: 'black',
+    border: '2px solid #00FF00',
+    borderRadius: '15px',
+    padding: '2rem',
+    position: 'relative',
+    width: '90%',
+    maxWidth: '400px',
+    color: 'white',
+    boxShadow: '0 0 20px rgba(0, 255, 0, 0.5)',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    background: 'none',
+    border: 'none',
+    color: '#00FF00',
+    fontSize: '1.5rem',
+    cursor: 'pointer',
+  },
+  h2: {
+    fontSize: '1.8rem',
+    textAlign: 'center',
+    color: '#00FF00',
+    marginBottom: '1.5rem',
+    fontFamily: 'Akira Expanded, sans-serif',
+    letterSpacing: '1px',
+  },
+  bookingDetails: {
+    marginBottom: '1.5rem',
+    textAlign: 'center',
+  },
+  bookingService: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    marginBottom: '0.5rem',
+  },
+  bookingPrice: {
+    fontSize: '1.1rem',
+    marginBottom: '1rem',
+  },
+  bookingPaymentTerms: {
+    fontSize: '1rem',
+    marginBottom: '1rem',
+    opacity: 0.8,
+  },
+  bookingTurnaround: {
+    fontSize: '1rem',
+    opacity: 0.8,
+  },
+  formGroup: {
+    marginBottom: '1.5rem',
+    width: '100%',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '0.5rem',
+    fontSize: '1rem',
+    textAlign: 'left',
+  },
+  input: {
+    width: '100%',
+    padding: '0.8rem',
+    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+    border: '2px solid #00FF00',
+    borderRadius: '5px',
+    color: 'white',
+    fontSize: '1rem',
+  },
+  bookNowButton: {
+    width: '100%',
+    padding: '1rem',
+    backgroundColor: '#00FF00',
+    color: 'black',
+    border: 'none',
+    borderRadius: '50px',
+    fontSize: '1.1rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    transition: 'all 0.3s',
+    boxShadow: '0 0 15px rgba(0, 255, 0, 0.5)',
+    fontFamily: 'Akira Expanded, sans-serif',
+    letterSpacing: '1px',
+  },
+  processingButton: {
+    opacity: 0.7,
+  }
+};
 
-// Success message styles
 const successStyles = {
   modalOverlay: {
     position: 'fixed',
@@ -258,56 +246,56 @@ const successStyles = {
   },
   successContent: {
     backgroundColor: 'black',
-    border: '3px solid #00FF00',
+    border: '2px solid #00FF00',
     borderRadius: '15px',
     padding: '2rem',
     position: 'relative',
     width: '90%',
-    maxWidth: '500px',
+    maxWidth: '400px',
     color: 'white',
     textAlign: 'center',
-    boxShadow: '0 0 30px rgba(0, 255, 0, 0.5)',
+    boxShadow: '0 0 20px rgba(0, 255, 0, 0.5)',
   },
   successIcon: {
-    fontSize: '4rem',
+    fontSize: '2rem',
     color: '#00FF00',
     marginBottom: '1rem',
     display: 'inline-block',
-    border: '3px solid #00FF00',
+    border: '2px solid #00FF00',
     borderRadius: '50%',
-    width: '80px',
-    height: '80px',
-    lineHeight: '74px',
+    width: '50px',
+    height: '50px',
+    lineHeight: '46px',
   },
   h2: {
-    fontSize: '2.5rem',
+    fontSize: '1.8rem',
     textAlign: 'center',
     color: '#00FF00',
-    marginBottom: '1.5rem',
+    marginBottom: '1rem',
     fontFamily: 'Akira Expanded, sans-serif',
-    letterSpacing: '2px',
+    letterSpacing: '1px',
   },
   successService: {
-    fontSize: '1.5rem',
+    fontSize: '1.2rem',
     fontWeight: 'bold',
     marginBottom: '1rem',
   },
   successMessage: {
-    fontSize: '1.2rem',
-    marginBottom: '1.5rem',
+    fontSize: '1.1rem',
+    marginBottom: '1rem',
   },
   paymentInfo: {
     fontSize: '1rem',
-    marginBottom: '1.5rem',
+    marginBottom: '1rem',
     opacity: 0.8,
   },
   countdownContainer: {
-    marginTop: '2rem',
+    marginTop: '1.5rem',
   },
   countdownBar: {
-    height: '10px',
+    height: '8px',
     backgroundColor: 'rgba(0, 255, 0, 0.2)',
-    borderRadius: '5px',
+    borderRadius: '4px',
     overflow: 'hidden',
     marginTop: '0.5rem',
     position: 'relative',
@@ -327,10 +315,10 @@ const successStyles = {
     color: 'black',
     border: 'none',
     borderRadius: '50px',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     fontWeight: 'bold',
     cursor: 'pointer',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.3s',
     boxShadow: '0 0 15px rgba(0, 255, 0, 0.5)',
     fontFamily: 'Akira Expanded, sans-serif',
     letterSpacing: '1px',
@@ -366,7 +354,7 @@ function IsolatedBookingModal({ service, onClose }) {
     minWidth: isMobile ? 'auto' : '500px',
     maxWidth: isMobile ? '400px' : '600px',
     padding: isMobile ? '1.5rem' : '2.5rem',
-    transform: isMobile ? 'scale(1)' : 'scale(4)',
+    transform: isMobile ? 'scale(1)' : 'scale(1)',
     transformOrigin: 'center center',
   };
   
@@ -542,7 +530,7 @@ function IsolatedSuccessMessage({ service, onClose }) {
     minWidth: isMobile ? 'auto' : '400px',
     maxWidth: isMobile ? '400px' : '500px',
     padding: isMobile ? '1.5rem' : '2rem',
-    transform: isMobile ? 'scale(1)' : 'scale(4)',
+    transform: isMobile ? 'scale(1)' : 'scale(1)',
   };
   
   const responsiveH2Style = {
@@ -664,7 +652,7 @@ function IsolatedServiceList() {
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center', // Added to help with centering
-    gap: isMobile ? '2rem' : '4rem', // Smaller gap on mobile
+    gap: isMobile ? '2rem' : '2rem', // Smaller gap on mobile
     overflow: 'visible',
     boxSizing: 'border-box',
   };
@@ -684,7 +672,7 @@ function IsolatedServiceList() {
     flexDirection: isMobile ? 'column' : 'row',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: '4rem'
+    marginBottom: '1rem'
   };
   
   // Wrapper components with isolated styling

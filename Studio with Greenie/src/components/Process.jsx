@@ -23,35 +23,46 @@ function Process() {
       processSteps: {
         listStyle: 'none',
         padding: 0,
+        margin: 0,
+        maxWidth: '100%',
+        width: '100%'
       },
       processStep: {
         display: 'flex',
-        marginBottom: isDesktop ? '2rem' : isTablet ? '1.5rem' : '1rem',
+        marginBottom: '2rem',
         alignItems: 'flex-start',
+        flexDirection: isMobile ? 'column' : 'row',
+        alignItems: isMobile ? 'center' : 'flex-start',
+        gap: '1.5rem',
+        padding: '1rem',
+        borderRadius: '8px',
+        backgroundColor: 'rgba(0, 255, 0, 0.05)'
       },
       stepNumber: {
         backgroundColor: '#00FF00',
         color: 'black',
-        width: isDesktop ? '40px' : isTablet ? '35px' : '30px',
-        height: isDesktop ? '40px' : isTablet ? '35px' : '30px',
+        width: '3rem',
+        height: '3rem',
         borderRadius: '50%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         fontWeight: 'bold',
-        fontSize: isDesktop ? '1.2rem' : isTablet ? '1.1rem' : '1rem',
-        marginRight: '1rem',
+        fontSize: '1.25rem',
         flexShrink: 0,
         boxShadow: '0 0 10px rgba(0, 255, 0, 0.7)',
+        border: '2px solid rgba(0, 0, 0, 0.1)'
       },
       stepContent: {
         flex: 1,
+        minWidth: 0
       },
       stepH3: {
         color: '#00FF00',
-        marginTop: 0,
-        marginBottom: '0.5rem',
-        fontSize: isDesktop ? '1.3rem' : isTablet ? '1.2rem' : '1.1rem',
+        margin: '0 0 0.75rem 0',
+        fontSize: '1.5rem',
+        lineHeight: '1.2',
+        fontWeight: '600'
       }
     };
   };

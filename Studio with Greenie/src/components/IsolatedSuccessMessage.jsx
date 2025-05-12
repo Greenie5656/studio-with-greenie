@@ -114,7 +114,7 @@ const successStyles = {
       minWidth: isMobile ? 'auto' : '400px',
       maxWidth: isMobile ? '400px' : '500px',
       padding: isMobile ? '1.5rem' : '2rem',
-      transform: isMobile ? 'scale(1)' : 'scale(4)',
+      transform: isMobile ? 'scale(1)' : 'scale(1)',
     };
     
     const responsiveH2Style = {
