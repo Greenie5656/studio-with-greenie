@@ -54,11 +54,11 @@ const footerStyles = {
     footerLink: {
         color: '#00FF00',
         textDecoration: 'none', 
-        fontSize: isMobile ? '0.7rem' : '1.1rem', // Smaller text on mobile
+        fontSize: isMobile ? '0.6rem' : '1.1rem', // Smaller text on mobile
         fontWeight: '500',
         transition: 'all 0.3s ease',
         textTransform: 'uppercase',
-        letterSpacing: isMobile ? '0.5px' : '1px', // Reduced letter spacing on mobile
+        letterSpacing: isMobile ? '0.3px' : '1px', // Reduced letter spacing on mobile
         whiteSpace: 'nowrap' // Prevent individual links from wrapping
     },
     footerCopyright: {
