@@ -446,18 +446,7 @@ function IsolatedBookingModal({ service, onClose }) {
             Estimated turnaround: {service.turnaround}
           </p>
           
-          {/* Test mode indicator */}
-          <p style={{
-            backgroundColor: '#FFF5CC',
-            color: '#333',
-            padding: '0.5rem',
-            borderRadius: '5px',
-            fontSize: isMobile ? '0.7rem' : '0.9rem',
-            marginTop: '1rem',
-            marginBottom: '1rem'
-          }}>
-            ⚠️ TEST MODE: No real payments will be processed
-          </p>
+   
         </div>
         
         {/* Formspree form */}
@@ -691,7 +680,7 @@ function IsolatedServiceList() {
       deposit: '£75',
       description: 'Get your very own tracks produced and mastered by DJ Greenie',
       turnaround: '2 weeks',
-      paymentLink: 'https://buy.stripe.com/test_dR616sbmQeFTaGc5kn'
+      paymentLink: 'https://buy.stripe.com/aFa8wPd9wg5432XaTo5Rm00'
 
     };
     
@@ -764,7 +753,7 @@ function IsolatedServiceList() {
       deposit: '£25',
       description: 'Professional mastering services for your tracks',
       turnaround: '2 weeks',
-      paymentLink: 'https://buy.stripe.com/test_9AQg1mgHa7draGc4gi'
+      paymentLink: 'https://buy.stripe.com/bJe5kDd9wdWWgTN2mS5Rm01'
     };
     
     // Merge base styles with mobile adjustments if needed
@@ -839,7 +828,7 @@ function IsolatedServiceList() {
       deposit: '£25',
       description: 'One-on-one lessons with DJ Greenie',
       turnaround: '30 mins per session',
-      paymentLink: 'https://buy.stripe.com/test_6oE5mI2Qk1T74hO8wx'
+      paymentLink: 'https://buy.stripe.com/cNi00jc5sf10gTN2mS5Rm02'
     };
     
     // Merge base styles with mobile adjustments if needed
@@ -912,7 +901,7 @@ function IsolatedServiceList() {
       deposit: '£30',
       description: 'Get any riff recreated and delivered as a MIDI file',
       turnaround: '2 weeks',
-      paymentLink: 'https://buy.stripe.com/test_14k4iEgHaeFT01y6oo'
+      paymentLink: 'https://buy.stripe.com/9B65kDedA0664711iO5Rm03'
 
     };
     

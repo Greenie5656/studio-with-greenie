@@ -30,7 +30,6 @@ function Process() {
       processStep: {
         display: 'flex',
         marginBottom: '2rem',
-        alignItems: 'flex-start',
         flexDirection: isMobile ? 'column' : 'row',
         alignItems: isMobile ? 'center' : 'flex-start',
         gap: '1.5rem',
