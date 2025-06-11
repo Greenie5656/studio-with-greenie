@@ -15,8 +15,11 @@ const cardStyles = {
     backgroundColor: 'black',
     border: '3px solid #00FF00',
     width: '350px',
+    maxWidth: '350px',
     minHeight: 'auto',
-    margin: '1rem'
+    margin: '1rem',
+    boxSizing: 'border-box',
+    overflow: 'hidden'
   },
   tracks: {
     backgroundColor: 'black',
@@ -72,6 +75,8 @@ const cardStyles = {
     lineHeight: '1.6',
     margin: '1rem 0',
     maxWidth: '90%',
+    wordWrap: 'break-word',
+    overflow: 'hidden'
   },
   delivery: {
     fontSize: '1rem',
@@ -84,40 +89,39 @@ const cardStyles = {
   }
 };
 
-
 // Card styles with very large 1300px fixed dimensions
 
 
 // Responsive adjustments for mobile
 const getMobileCardStyles = (windowWidth) => {
   if (windowWidth <= 480) {
-    // Extra small devices
     return {
-      width: '90vw', // Use viewport width instead of fixed pixels
-      maxWidth: '350px', // Add a max-width for safety
+      width: '90vw',
+      maxWidth: '350px', // Keep consistent max width
       height: 'auto',
       minHeight: '450px',
       padding: '1rem',
-      margin: '0 auto', // Center the card
+      margin: '0 auto',
+      boxSizing: 'border-box', // Add this for mobile too
       h2: { fontSize: '2rem' },
       price: { fontSize: '1.5rem' },
-      description: { fontSize: '1rem', lineHeight: '1.4' },
+      description: { fontSize: '1rem', lineHeight: '1.4', wordWrap: 'break-word' },
       delivery: { fontSize: '0.9rem' },
       icon: { fontSize: '2.5rem' },
       button: { fontSize: '1rem', padding: '0.7rem 1.5rem' }
     };
   } else if (windowWidth <= 768) {
-    // Standard mobile devices
     return {
       width: '100%',
-      maxWidth: '500px',
+      maxWidth: '350px', // Keep consistent max width on tablet too
       height: 'auto', 
       minHeight: '400px',
       padding: '20px',
       margin: '0 auto',
+      boxSizing: 'border-box',
       h2: { fontSize: '24px' },
       price: { fontSize: '20px' },
-      description: { fontSize: '16px', lineHeight: '1.5' },
+      description: { fontSize: '16px', lineHeight: '1.5', wordWrap: 'break-word' },
       delivery: { fontSize: '14px' },
       icon: { fontSize: '24px' },
       button: { fontSize: '16px', padding: '12px 24px' }
@@ -145,12 +149,13 @@ const modalStyles = {
     backgroundColor: 'black',
     border: '2px solid #00FF00',
     borderRadius: '15px',
-    padding: '2rem',
+    padding: '1.5rem', // Reduced padding
     position: 'relative',
     width: '90%',
-    maxWidth: '400px',
+    maxWidth: '450px', // Increased max width slightly
     color: 'white',
     boxShadow: '0 0 20px rgba(0, 255, 0, 0.5)',
+    margin: '0 auto', // Center the modal
   },
   closeButton: {
     position: 'absolute',
@@ -202,7 +207,7 @@ const modalStyles = {
     fontSize: '1rem',
     textAlign: 'left',
   },
-  input: {
+   input: {
     width: '100%',
     padding: '0.8rem',
     backgroundColor: 'rgba(0, 255, 0, 0.1)',
@@ -210,6 +215,8 @@ const modalStyles = {
     borderRadius: '5px',
     color: 'white',
     fontSize: '1rem',
+    boxSizing: 'border-box', // This is the key fix!
+    outline: 'none',
   },
   bookNowButton: {
     width: '100%',
@@ -348,15 +355,15 @@ function IsolatedBookingModal({ service, onClose }) {
   const isMobile = windowWidth <= 768;
   
   // Responsive styles for modal
-  const responsiveModalStyle = {
-    ...modalStyles.modalContent,
-    width: isMobile ? '90%' : '500px',
-    minWidth: isMobile ? 'auto' : '500px',
-    maxWidth: isMobile ? '400px' : '600px',
-    padding: isMobile ? '1.5rem' : '2.5rem',
-    transform: isMobile ? 'scale(1)' : 'scale(1)',
-    transformOrigin: 'center center',
-  };
+ const responsiveModalStyle = {
+  ...modalStyles.modalContent,
+  width: isMobile ? '95%' : '450px', // Slightly wider on mobile
+  minWidth: isMobile ? 'auto' : '450px',
+  maxWidth: isMobile ? '95%' : '500px',
+  padding: isMobile ? '1rem' : '1.5rem', // Less padding on mobile
+  transform: 'none', // Remove any transforms
+  margin: '0 auto', // Center it properly
+};
   
   const responsiveH2Style = {
     ...modalStyles.h2,
